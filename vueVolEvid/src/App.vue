@@ -9,10 +9,33 @@ import HelloWorld from '@/components/HelloWorld.vue'
     <router-link to="/probni">Probni</router-link>
     <router-link to="/registracija">Registracija</router-link>
     <router-link to="/prijava">Prijava</router-link>
-  
+    <button @click="odjaviKorisnika" v-if="ulogiran">Odjava</button>
   </nav>
 </template>
+<script setup>
+import {onMounted, ref} from "vue";
+import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 
+const ulogiran = ref(false);
+
+let auth;
+onMounted(()=> {
+  auth=getAuth();
+  onAuthStateChanged(auth, (user) =>{
+    if(user){
+      ulogiran.value=true;
+    } else {
+      ulogiran.value=false;
+    }
+  });
+});
+
+const odjaviKorisnika = () => {
+  signOut(auth).then(()=>{
+    router.push("/");
+});
+};
+</script>
 <style>
 @import '@/assets/base.css';
 
@@ -110,3 +133,5 @@ nav a:first-of-type {
   }
 }
 </style>
+
+
