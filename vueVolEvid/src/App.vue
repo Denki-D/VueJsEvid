@@ -9,6 +9,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
     <router-link to="/probni">Probni</router-link>
     <router-link to="/registracija">Registracija</router-link>
     <router-link to="/prijava">Prijava</router-link>
+  
   </nav>
 </template>
 
